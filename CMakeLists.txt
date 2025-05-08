@@ -801,7 +801,8 @@ third_party/quiche/quiche/quic/platform/api/quic_exported_stats.h
 third_party/quiche/quiche/quic/platform/api/quic_flag_utils.h
 third_party/quiche/quiche/quic/platform/api/quic_flags.h
 third_party/quiche/quiche/quic/platform/api/quic_logging.h
-#third_party/quiche/quiche/quic/platform/api/quic_mem_slice.h
+third_party/quiche/quiche/common/platform/api/quiche_mem_slice.h
+third_party/quiche/quiche/common/platform/api/quiche_mem_slice.cc
 #third_party/quiche/quiche/quic/platform/api/quic_mem_slice_storage.cc
 #third_party/quiche/quiche/quic/platform/api/quic_mem_slice_storage.h
 third_party/quiche/quiche/quic/platform/api/quic_server_stats.h
