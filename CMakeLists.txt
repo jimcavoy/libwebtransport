@@ -157,6 +157,7 @@ third_party/quiche/quiche/common/platform/api/quiche_hostname_utils.h
 third_party/quiche/quiche/common/platform/api/quiche_iovec.h
 third_party/quiche/quiche/common/platform/api/quiche_logging.h
 third_party/quiche/quiche/common/platform/api/quiche_mem_slice.h
+third_party/quiche/quiche/common/platform/api/quiche_mem_slice.cc
 third_party/quiche/quiche/common/platform/api/quiche_reference_counted.h
 third_party/quiche/quiche/common/platform/api/quiche_time_utils.h
 third_party/quiche/quiche/common/platform/api/quiche_url_utils.h
