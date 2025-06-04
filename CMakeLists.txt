@@ -8,8 +8,12 @@ cmake_policy(SET CMP0091 NEW)
     set(protobuf_MSVC_STATIC_RUNTIME ON)
 #ENDIF(MSVC)
 
-project (webtransport)
+project (webtransport
+  VERSION 1.0.0
+  LANGUAGES CXX 
+)
 
+include(GNUInstallDirs)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 set(CMAKE_CXX_STANDARD 20)
@@ -17,8 +21,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(BUILD_TESTING OFF)
 
 set(protobuf_BUILD_PROTOC_BINARIES ON)
-
-
 
 
 IF (WIN32)
@@ -1071,8 +1073,15 @@ set(WEB_TRANSPORT_SOURCE_FILES
     "web_transport_client_verify.h"
 )
 
+set(CMAKE_DEBUG_POSTFIX d)
+
 # Create shared library instead of executables
+if (WIN32)
+add_library(webtransport STATIC ${WEB_TRANSPORT_SOURCE_FILES})
+else ()
 add_library(webtransport SHARED ${WEB_TRANSPORT_SOURCE_FILES})
+endif ()
+
 
 # Set C++ standard for the library
 set_property(TARGET webtransport PROPERTY CXX_STANDARD 20)
@@ -1129,3 +1138,31 @@ endif()
 
 # Only build examples after the main library is built
 add_subdirectory(examples)
+
+install(TARGETS webtransport gquiche
+  EXPORT webtransport_export
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install (
+    FILES web_transport.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install (EXPORT webtransport_export
+  FILE webtransport-config.cmake 
+  DESTINATION lib/cmake/webtransport
+)
+
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+    "webtransport-config-version.cmake"
+    COMPATIBILITY SameMajorVersion
+)
+
+install (FILES 
+  "${CMAKE_CURRENT_BINARY_DIR}/webtransport-config-version.cmake"
+  DESTINATION lib/cmake/webtransport
+)
