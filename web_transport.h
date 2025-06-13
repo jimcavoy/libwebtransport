@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "webtransport/export_webtransport.hpp"
 
 // Forward declarations to avoid including internal headers
 namespace webtransport {
@@ -24,7 +25,7 @@ namespace web_transport {
 //-----------------------------------------------------------------------------
 // Client API
 //-----------------------------------------------------------------------------
-class Client {
+class WEBTRANSPORT_EXPORT Client {
 public:
   // Constructor that takes a WebTransport URL
   Client(const std::string& url);
@@ -56,7 +57,7 @@ private:
 //-----------------------------------------------------------------------------
 // ClientSession API
 //-----------------------------------------------------------------------------
-class ClientSession {
+class WEBTRANSPORT_EXPORT ClientSession {
 public:
   ClientSession(void* session);
   ~ClientSession();
@@ -75,7 +76,7 @@ private:
 //-----------------------------------------------------------------------------
 // ClientStream API
 //-----------------------------------------------------------------------------
-class ClientStream {
+class WEBTRANSPORT_EXPORT ClientStream {
 public:
   ClientStream(void* stream);
   ~ClientStream();
@@ -91,7 +92,7 @@ private:
 //-----------------------------------------------------------------------------
 // Server API
 //-----------------------------------------------------------------------------
-class Server {
+class WEBTRANSPORT_EXPORT Server {
 public:
   Server(const std::string& host, uint16_t port);
   ~Server();
@@ -121,7 +122,7 @@ private:
 //-----------------------------------------------------------------------------
 // ServerSession API
 //-----------------------------------------------------------------------------
-class ServerSession {
+class WEBTRANSPORT_EXPORT ServerSession {
 public:
   ServerSession(void* session);
   ~ServerSession();
@@ -138,7 +139,7 @@ private:
 //-----------------------------------------------------------------------------
 // ServerStream API
 //-----------------------------------------------------------------------------
-class ServerStream {
+class WEBTRANSPORT_EXPORT ServerStream {
 public:
   ServerStream(void* stream);
   ~ServerStream();

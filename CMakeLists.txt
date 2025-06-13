@@ -995,47 +995,50 @@ ${CMAKE_CURRENT_SOURCE_DIR}/third_party/quiche/quiche/quic/core/proto/source_add
 set_property(TARGET gquiche PROPERTY CXX_STANDARD 20)
 
 target_include_directories(gquiche
-PUBLIC platform
-PUBLIC third_party/quiche
-PUBLIC third_party/boringssl/src/include
-PUBLIC third_party/abseil-cpp
-PUBLIC third_party/googleurl
-PUBLIC third_party/googletest/googlemock/include
-PUBLIC third_party/zlib
-PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib
-PUBLIC .
-PUBLIC ${Protobuf_INCLUDE_DIRS}
-PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+  PRIVATE 
+    platform
+    third_party/quiche
+    third_party/boringssl/src/include
+    third_party/abseil-cpp
+    third_party/googleurl
+    third_party/googletest/googlemock/include
+    third_party/zlib
+    ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${Protobuf_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-target_include_directories(crypto PUBLIC 
-$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/third_party/boringssl/src/include>
+target_include_directories(crypto 
+  PUBLIC 
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/third_party/boringssl/src/include>
 )
 
-target_link_libraries(gquiche 
-absl::core_headers
-absl::log_severity
-absl::flags
-absl::flags_usage
-absl::flags_parse
-absl::absl_check
-absl::absl_log
-absl::log_flags
-absl::log_initialize
-absl::int128
-absl::strings 
-absl::str_format
-absl::flat_hash_map
-absl::any 
-absl::synchronization
-absl::time
-absl::status
-absl::statusor
-absl::cleanup
-protobuf::libprotobuf
-ssl 
-zlibstatic
-crypto
+target_link_libraries(gquiche
+  PRIVATE
+    absl::core_headers
+    absl::log_severity
+    absl::flags
+    absl::flags_usage
+    absl::flags_parse
+    absl::absl_check
+    absl::absl_log
+    absl::log_flags
+    absl::log_initialize
+    absl::int128
+    absl::strings 
+    absl::str_format
+    absl::flat_hash_map
+    absl::any 
+    absl::synchronization
+    absl::time
+    absl::status
+    absl::statusor
+    absl::cleanup
+    protobuf::libprotobuf
+    ssl 
+    zlibstatic
+    crypto
 )
 
 
@@ -1076,11 +1079,7 @@ set(WEB_TRANSPORT_SOURCE_FILES
 set(CMAKE_DEBUG_POSTFIX d)
 
 # Create shared library instead of executables
-if (WIN32)
-add_library(webtransport STATIC ${WEB_TRANSPORT_SOURCE_FILES})
-else ()
 add_library(webtransport SHARED ${WEB_TRANSPORT_SOURCE_FILES})
-endif ()
 
 
 # Set C++ standard for the library
@@ -1088,16 +1087,20 @@ set_property(TARGET webtransport PROPERTY CXX_STANDARD 20)
 
 # Include directories for the library
 target_include_directories(webtransport
-    PUBLIC platform
-    PUBLIC third_party/quiche
-    PUBLIC third_party/boringssl/src/include
-    PUBLIC third_party/abseil-cpp
-    PUBLIC third_party/googleurl
-    PUBLIC third_party/zlib
-    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib
-    PUBLIC .
-    PUBLIC ${Protobuf_INCLUDE_DIRS}
-    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+  PRIVATE
+    platform
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/quiche>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/boringssl/src/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/abseil-cpp>
+    third_party/googleurl
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/zlib>
+    third_party/protobuf/src
+    ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${Protobuf_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
 # Add ICU include directories conditionally for Linux
@@ -1109,6 +1112,7 @@ endif()
 
 # Link libraries for the shared library
 target_link_libraries(webtransport
+  PRIVATE
     gquiche
     ssl
     zlibstatic
@@ -1139,7 +1143,18 @@ endif()
 # Only build examples after the main library is built
 add_subdirectory(examples)
 
-install(TARGETS webtransport gquiche
+
+include(GenerateExportHeader)
+set_property(TARGET webtransport PROPERTY CXX_VISIBILITY "hidden")
+set_property(TARGET webtransport PROPERTY VISIBILITY_INLINES_HIDDEN TRUE)
+
+generate_export_header(webtransport EXPORT_FILE_NAME 
+  export/webtransport/export_webtransport.hpp)
+
+target_include_directories(webtransport
+  PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/export")
+
+install(TARGETS webtransport
   EXPORT webtransport_export
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
