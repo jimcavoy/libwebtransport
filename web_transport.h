@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "webtransport/export_webtransport.hpp"
+#include "export_webtransport.hpp"
 
 // Forward declarations to avoid including internal headers
 namespace webtransport {

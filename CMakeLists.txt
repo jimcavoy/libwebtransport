@@ -1152,7 +1152,7 @@ generate_export_header(webtransport EXPORT_FILE_NAME
   export/webtransport/export_webtransport.hpp)
 
 target_include_directories(webtransport
-  PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/export")
+  PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/export/webtransport")
 
 install(TARGETS webtransport
   EXPORT webtransport_export
@@ -1160,7 +1160,7 @@ install(TARGETS webtransport
 )
 
 install (
-    FILES web_transport.h
+    FILES web_transport.h ${CMAKE_CURRENT_BINARY_DIR}/export/webtransport/export_webtransport.hpp
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
