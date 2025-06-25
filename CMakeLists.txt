@@ -1076,11 +1076,8 @@ set(WEB_TRANSPORT_SOURCE_FILES
     "web_transport_client_verify.h"
 )
 
-set(CMAKE_DEBUG_POSTFIX d)
-
 # Create shared library instead of executables
 add_library(webtransport SHARED ${WEB_TRANSPORT_SOURCE_FILES})
-
 
 # Set C++ standard for the library
 set_property(TARGET webtransport PROPERTY CXX_STANDARD 20)
