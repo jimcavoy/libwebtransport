@@ -939,7 +939,7 @@ IF (WIN32)
 ELSE(WIN32)
     IF(APPLE)
     ELSE(APPLE)
-    target_link_libraries(gquiche -static-libgcc -static-libstdc++)
+    target_link_libraries(gquiche PRIVATE -static-libgcc -static-libstdc++)
     ENDIF(APPLE)
 ENDIF(WIN32)
 
@@ -1119,6 +1119,7 @@ target_link_libraries(webtransport
 # Add ICU libraries conditionally for Linux
 if(UNIX)
     target_link_libraries(webtransport
+      PRIVATE
         ICU::uc ICU::data ICU::i18n
     )
 endif()
@@ -1133,7 +1134,7 @@ elseif(APPLE)
     # macOS-specific configurations (if any)
 else()
     # Linux-specific configurations
-    target_link_libraries(webtransport -static-libgcc -static-libstdc++)
+    target_link_libraries(webtransport PRIVATE -static-libgcc -static-libstdc++)
 endif()
 
 
