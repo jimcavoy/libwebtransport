@@ -27,7 +27,7 @@ $ cmake --no-warn-unused-cli -G "Visual Studio 17 2022" -A x64 -T ClangCL -DCMAK
 $ cmake --build .
 ```
 
-### Build on Linux
+## Build on Linux
 
 Ensure that all the required development packages are installed before building. For Linux, the example uses libicu-dev and build-essential for compiling the project. The build process creates a dedicated build directory, configures the project with CMake, and then compiles it.
 
@@ -38,4 +38,11 @@ $ apt-get install -y libicu-dev build-essential
 $ mkdir build && cd build
 $ cmake ..
 $ cmake --build .
+```
+
+## To Install
+To the install __libwebtransport__, enter the following:
+
+```bash
+sudo cmake --install . --prefix /usr/local
 ```
