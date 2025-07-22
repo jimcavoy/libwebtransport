@@ -45,3 +45,8 @@ $ cmake --build .
 ```
 cmake --install ./build --prefix "C:\Program Files\webtransport" --config <Release|Debug>
 ```
+
+## Install on Linux
+```bash
+sudo cmake --install ./build --prefix "/usr/local"
+```
