@@ -40,6 +40,7 @@ $ cmake ..
 $ cmake --build .
 ```
 
+
 ## Install on Windows
 
 ```
@@ -49,4 +50,10 @@ cmake --install ./build --prefix "C:\Program Files\webtransport" --config <Relea
 ## Install on Linux
 ```bash
 sudo cmake --install ./build --prefix "/usr/local"
+=======
+## To Install
+To the install __libwebtransport__, enter the following:
+
+```bash
+sudo cmake --install . --prefix /usr/local
 ```
