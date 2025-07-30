@@ -8,8 +8,12 @@ cmake_policy(SET CMP0091 NEW)
     set(protobuf_MSVC_STATIC_RUNTIME ON)
 #ENDIF(MSVC)
 
-project (webtransport)
+project (webtransport
+  VERSION 1.0.0
+  LANGUAGES CXX 
+)
 
+include(GNUInstallDirs)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 set(CMAKE_CXX_STANDARD 20)
@@ -17,8 +21,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(BUILD_TESTING OFF)
 
 set(protobuf_BUILD_PROTOC_BINARIES ON)
-
-
 
 
 IF (WIN32)
@@ -142,13 +144,26 @@ third_party/googleurl/base/strings/utf_string_conversion_utils.h
 third_party/googleurl/build/buildflag.h
 third_party/googleurl/build/build_config.h
 # normal files
+third_party/quiche/quiche/common/btree_scheduler.h
+third_party/quiche/quiche/common/bug_utils.cc
+third_party/quiche/quiche/common/bug_utils.h
+third_party/quiche/quiche/common/bug_utils_test_helper.h
 third_party/quiche/quiche/common/capsule.cc
 third_party/quiche/quiche/common/capsule.h
 third_party/quiche/quiche/common/http/http_header_block.cc
 third_party/quiche/quiche/common/http/http_header_block.h
 third_party/quiche/quiche/common/http/http_header_storage.cc
 third_party/quiche/quiche/common/http/http_header_storage.h
+third_party/quiche/quiche/common/internet_checksum.cc
+third_party/quiche/quiche/common/internet_checksum.h
+third_party/quiche/quiche/common/lifetime_tracking.h
+third_party/quiche/quiche/common/masque/connect_ip_datagram_payload.cc
+third_party/quiche/quiche/common/masque/connect_ip_datagram_payload.h
+third_party/quiche/quiche/common/masque/connect_udp_datagram_payload.cc
+third_party/quiche/quiche/common/masque/connect_udp_datagram_payload.h
 third_party/quiche/quiche/common/platform/api/quiche_bug_tracker.h
+third_party/quiche/quiche/common/platform/api/quiche_client_stats.h
+third_party/quiche/quiche/common/platform/api/quiche_containers.h
 third_party/quiche/quiche/common/platform/api/quiche_export.h
 third_party/quiche/quiche/common/platform/api/quiche_flag_utils.h
 third_party/quiche/quiche/common/platform/api/quiche_flags.h
@@ -156,8 +171,12 @@ third_party/quiche/quiche/common/platform/api/quiche_hostname_utils.cc
 third_party/quiche/quiche/common/platform/api/quiche_hostname_utils.h
 third_party/quiche/quiche/common/platform/api/quiche_iovec.h
 third_party/quiche/quiche/common/platform/api/quiche_logging.h
-third_party/quiche/quiche/common/platform/api/quiche_mem_slice.h
+third_party/quiche/quiche/common/platform/api/quiche_lower_case_string.h
 third_party/quiche/quiche/common/platform/api/quiche_reference_counted.h
+third_party/quiche/quiche/common/platform/api/quiche_server_stats.h
+third_party/quiche/quiche/common/platform/api/quiche_stack_trace.h
+third_party/quiche/quiche/common/platform/api/quiche_testvalue.h
+third_party/quiche/quiche/common/platform/api/quiche_thread.h
 third_party/quiche/quiche/common/platform/api/quiche_time_utils.h
 third_party/quiche/quiche/common/platform/api/quiche_url_utils.h
 third_party/quiche/quiche/common/platform/default/quiche_platform_impl/quiche_command_line_flags_impl.cc
@@ -174,6 +193,7 @@ third_party/quiche/quiche/common/platform/default/quiche_platform_impl/quiche_ti
 third_party/quiche/quiche/common/print_elements.h
 third_party/quiche/quiche/common/quiche_buffer_allocator.cc
 third_party/quiche/quiche/common/quiche_buffer_allocator.h
+third_party/quiche/quiche/common/quiche_callbacks.h
 third_party/quiche/quiche/common/quiche_crypto_logging.cc
 third_party/quiche/quiche/common/quiche_crypto_logging.h
 third_party/quiche/quiche/common/quiche_circular_deque.h
@@ -182,31 +202,43 @@ third_party/quiche/quiche/common/quiche_data_reader.h
 third_party/quiche/quiche/common/quiche_data_writer.cc
 third_party/quiche/quiche/common/quiche_data_writer.h
 third_party/quiche/quiche/common/quiche_endian.h
+third_party/quiche/quiche/common/quiche_feature_flags_list.h
+third_party/quiche/quiche/common/quiche_intrusive_list.h
 third_party/quiche/quiche/common/quiche_ip_address.cc
 third_party/quiche/quiche/common/quiche_ip_address.h
 third_party/quiche/quiche/common/quiche_ip_address_family.cc
 third_party/quiche/quiche/common/quiche_ip_address_family.h
 third_party/quiche/quiche/common/quiche_linked_hash_map.h
+third_party/quiche/quiche/common/quiche_mem_slice.cc
+third_party/quiche/quiche/common/quiche_mem_slice.h
 third_party/quiche/quiche/common/quiche_mem_slice_storage.h
 third_party/quiche/quiche/common/quiche_mem_slice_storage.cc
+third_party/quiche/quiche/common/quiche_protocol_flags_list.h
 third_party/quiche/quiche/common/quiche_random.cc
 third_party/quiche/quiche/common/quiche_random.h
 third_party/quiche/quiche/common/quiche_simple_arena.cc
 third_party/quiche/quiche/common/quiche_simple_arena.h
 third_party/quiche/quiche/common/quiche_socket_address.cc
 third_party/quiche/quiche/common/quiche_socket_address.h
+third_party/quiche/quiche/common/quiche_status_utils.h
+third_party/quiche/quiche/common/quiche_stream.h
 third_party/quiche/quiche/common/quiche_text_utils.cc
 third_party/quiche/quiche/common/quiche_text_utils.h
+third_party/quiche/quiche/common/quiche_weak_ptr.h
 third_party/quiche/quiche/common/simple_buffer_allocator.cc
 third_party/quiche/quiche/common/structured_headers.h
 third_party/quiche/quiche/common/structured_headers.cc
 third_party/quiche/quiche/common/vectorized_io_utils.h
 third_party/quiche/quiche/common/vectorized_io_utils.cc
+third_party/quiche/quiche/common/wire_serialization.h
+third_party/quiche/quiche/http2/adapter/chunked_buffer.cc
+third_party/quiche/quiche/http2/adapter/chunked_buffer.h
 third_party/quiche/quiche/http2/adapter/data_source.h
 third_party/quiche/quiche/http2/adapter/event_forwarder.cc
 third_party/quiche/quiche/http2/adapter/event_forwarder.h
 third_party/quiche/quiche/http2/adapter/header_validator.cc
 third_party/quiche/quiche/http2/adapter/header_validator.h
+third_party/quiche/quiche/http2/adapter/header_validator_base.h
 third_party/quiche/quiche/http2/adapter/http2_adapter.h
 third_party/quiche/quiche/http2/adapter/http2_protocol.cc
 third_party/quiche/quiche/http2/adapter/http2_protocol.h
@@ -224,10 +256,14 @@ third_party/quiche/quiche/http2/adapter/oghttp2_util.cc
 third_party/quiche/quiche/http2/adapter/oghttp2_util.h
 third_party/quiche/quiche/http2/adapter/window_manager.cc
 third_party/quiche/quiche/http2/adapter/window_manager.h
+third_party/quiche/quiche/http2/core/array_output_buffer.cc
+third_party/quiche/quiche/http2/core/array_output_buffer.h
+third_party/quiche/quiche/http2/core/header_byte_listener_interface.h
 third_party/quiche/quiche/http2/core/http2_constants.cc
 third_party/quiche/quiche/http2/core/http2_constants.h
 third_party/quiche/quiche/http2/core/http2_frame_decoder_adapter.cc
 third_party/quiche/quiche/http2/core/http2_frame_decoder_adapter.h
+third_party/quiche/quiche/http2/core/http2_header_block_hpack_listener.h
 third_party/quiche/quiche/http2/core/http2_structures.cc
 third_party/quiche/quiche/http2/core/http2_structures.h
 third_party/quiche/quiche/http2/core/http2_trace_logging.cc
@@ -388,6 +424,8 @@ third_party/quiche/quiche/quic/core/congestion_control/tcp_cubic_sender_bytes.h
 third_party/quiche/quiche/quic/core/congestion_control/uber_loss_algorithm.cc
 third_party/quiche/quiche/quic/core/congestion_control/uber_loss_algorithm.h
 third_party/quiche/quiche/quic/core/congestion_control/windowed_filter.h
+third_party/quiche/quiche/quic/core/connecting_client_socket.h
+third_party/quiche/quiche/quic/core/connection_id_generator.h
 third_party/quiche/quiche/quic/core/crypto/aead_base_decrypter.cc
 third_party/quiche/quiche/quic/core/crypto/aead_base_decrypter.h
 third_party/quiche/quiche/quic/core/crypto/aead_base_encrypter.cc
@@ -484,6 +522,9 @@ third_party/quiche/quiche/quic/core/crypto/transport_parameters.cc
 third_party/quiche/quiche/quic/core/crypto/transport_parameters.h
 third_party/quiche/quiche/quic/core/crypto/web_transport_fingerprint_proof_verifier.cc
 third_party/quiche/quiche/quic/core/crypto/web_transport_fingerprint_proof_verifier.h
+third_party/quiche/quiche/quic/core/deterministic_connection_id_generator.cc
+third_party/quiche/quiche/quic/core/deterministic_connection_id_generator.h
+third_party/quiche/quiche/quic/core/flow_label.h
 third_party/quiche/quiche/quic/core/frames/quic_ack_frame.cc
 third_party/quiche/quiche/quic/core/frames/quic_ack_frame.h
 third_party/quiche/quiche/quic/core/frames/quic_ack_frequency_frame.cc
@@ -578,6 +619,9 @@ third_party/quiche/quiche/quic/core/http/web_transport_http3.cc
 third_party/quiche/quiche/quic/core/http/web_transport_http3.h
 third_party/quiche/quiche/quic/core/http/web_transport_stream_adapter.cc
 third_party/quiche/quiche/quic/core/http/web_transport_stream_adapter.h
+third_party/quiche/quiche/quic/core/legacy_quic_stream_id_manager.cc
+third_party/quiche/quiche/quic/core/legacy_quic_stream_id_manager.h
+third_party/quiche/quiche/quic/core/packet_number_indexed_queue.h
 third_party/quiche/quiche/quic/core/io/quic_event_loop.h
 third_party/quiche/quiche/quic/core/io/quic_default_event_loop.cc
 third_party/quiche/quiche/quic/core/io/quic_default_event_loop.h
@@ -744,6 +788,10 @@ third_party/quiche/quiche/quic/core/quic_stream_priority.cc
 third_party/quiche/quiche/quic/core/quic_stream_priority.h
 third_party/quiche/quiche/quic/core/quic_stream_send_buffer.cc
 third_party/quiche/quiche/quic/core/quic_stream_send_buffer.h
+third_party/quiche/quiche/quic/core/quic_stream_send_buffer_base.cc
+third_party/quiche/quiche/quic/core/quic_stream_send_buffer_base.h
+third_party/quiche/quiche/quic/core/quic_stream_send_buffer_inlining.cc
+third_party/quiche/quiche/quic/core/quic_stream_send_buffer_inlining.h
 third_party/quiche/quiche/quic/core/quic_stream_sequencer.cc
 third_party/quiche/quiche/quic/core/quic_stream_sequencer.h
 third_party/quiche/quiche/quic/core/quic_stream_sequencer_buffer.cc
@@ -801,9 +849,6 @@ third_party/quiche/quiche/quic/platform/api/quic_exported_stats.h
 third_party/quiche/quiche/quic/platform/api/quic_flag_utils.h
 third_party/quiche/quiche/quic/platform/api/quic_flags.h
 third_party/quiche/quiche/quic/platform/api/quic_logging.h
-#third_party/quiche/quiche/quic/platform/api/quic_mem_slice.h
-#third_party/quiche/quiche/quic/platform/api/quic_mem_slice_storage.cc
-#third_party/quiche/quiche/quic/platform/api/quic_mem_slice_storage.h
 third_party/quiche/quiche/quic/platform/api/quic_server_stats.h
 third_party/quiche/quiche/quic/platform/api/quic_stack_trace.h
 third_party/quiche/quiche/quic/platform/api/quic_thread.h
@@ -935,7 +980,7 @@ IF (WIN32)
 ELSE(WIN32)
     IF(APPLE)
     ELSE(APPLE)
-    target_link_libraries(gquiche -static-libgcc -static-libstdc++)
+    target_link_libraries(gquiche PRIVATE -static-libgcc -static-libstdc++)
     ENDIF(APPLE)
 ENDIF(WIN32)
 
@@ -991,47 +1036,51 @@ ${CMAKE_CURRENT_SOURCE_DIR}/third_party/quiche/quiche/quic/core/proto/source_add
 set_property(TARGET gquiche PROPERTY CXX_STANDARD 20)
 
 target_include_directories(gquiche
-PUBLIC platform
-PUBLIC third_party/quiche
-PUBLIC third_party/boringssl/src/include
-PUBLIC third_party/abseil-cpp
-PUBLIC third_party/googleurl
-PUBLIC third_party/googletest/googlemock/include
-PUBLIC third_party/zlib
-PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib
-PUBLIC .
-PUBLIC ${Protobuf_INCLUDE_DIRS}
-PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+  PRIVATE 
+    platform
+    third_party/quiche
+    third_party/boringssl/src/include
+    third_party/abseil-cpp
+    third_party/googleurl
+    third_party/googletest/googlemock/include
+    third_party/zlib
+    third_party/protobuf/third_party/utf8_range
+    ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${Protobuf_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-target_include_directories(crypto PUBLIC 
-$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/third_party/boringssl/src/include>
+target_include_directories(crypto 
+  PUBLIC 
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/third_party/boringssl/src/include>
 )
 
-target_link_libraries(gquiche 
-absl::core_headers
-absl::log_severity
-absl::flags
-absl::flags_usage
-absl::flags_parse
-absl::absl_check
-absl::absl_log
-absl::log_flags
-absl::log_initialize
-absl::int128
-absl::strings 
-absl::str_format
-absl::flat_hash_map
-absl::any 
-absl::synchronization
-absl::time
-absl::status
-absl::statusor
-absl::cleanup
-protobuf::libprotobuf
-ssl 
-zlibstatic
-crypto
+target_link_libraries(gquiche
+  PRIVATE
+    absl::core_headers
+    absl::log_severity
+    absl::flags
+    absl::flags_usage
+    absl::flags_parse
+    absl::absl_check
+    absl::absl_log
+    absl::log_flags
+    absl::log_initialize
+    absl::int128
+    absl::strings 
+    absl::str_format
+    absl::flat_hash_map
+    absl::any 
+    absl::synchronization
+    absl::time
+    absl::status
+    absl::statusor
+    absl::cleanup
+    protobuf::libprotobuf
+    ssl 
+    zlibstatic
+    crypto
 )
 
 
@@ -1077,16 +1126,21 @@ set_property(TARGET webtransport PROPERTY CXX_STANDARD 20)
 
 # Include directories for the library
 target_include_directories(webtransport
-    PUBLIC platform
-    PUBLIC third_party/quiche
-    PUBLIC third_party/boringssl/src/include
-    PUBLIC third_party/abseil-cpp
-    PUBLIC third_party/googleurl
-    PUBLIC third_party/zlib
-    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib
-    PUBLIC .
-    PUBLIC ${Protobuf_INCLUDE_DIRS}
-    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+  PRIVATE
+    platform
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/quiche>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/boringssl/src/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/abseil-cpp>
+    third_party/googleurl
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/zlib>
+    third_party/protobuf/src
+    third_party/protobuf/third_party/utf8_range
+    ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${Protobuf_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
 # Add ICU include directories conditionally for Linux
@@ -1098,6 +1152,7 @@ endif()
 
 # Link libraries for the shared library
 target_link_libraries(webtransport
+  PRIVATE
     gquiche
     ssl
     zlibstatic
@@ -1107,6 +1162,7 @@ target_link_libraries(webtransport
 # Add ICU libraries conditionally for Linux
 if(UNIX)
     target_link_libraries(webtransport
+      PRIVATE
         ICU::uc ICU::data ICU::i18n
     )
 endif()
@@ -1121,9 +1177,48 @@ elseif(APPLE)
     # macOS-specific configurations (if any)
 else()
     # Linux-specific configurations
-    target_link_libraries(webtransport -static-libgcc -static-libstdc++)
+    target_link_libraries(webtransport PRIVATE -static-libgcc -static-libstdc++)
 endif()
 
 
 # Only build examples after the main library is built
 add_subdirectory(examples)
+
+
+include(GenerateExportHeader)
+set_property(TARGET webtransport PROPERTY CXX_VISIBILITY "hidden")
+set_property(TARGET webtransport PROPERTY VISIBILITY_INLINES_HIDDEN TRUE)
+
+generate_export_header(webtransport EXPORT_FILE_NAME 
+  export/webtransport/export_webtransport.hpp)
+
+target_include_directories(webtransport
+  PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/export/webtransport")
+
+install(TARGETS webtransport
+  EXPORT webtransport_export
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install (
+    FILES web_transport.h ${CMAKE_CURRENT_BINARY_DIR}/export/webtransport/export_webtransport.hpp
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install (EXPORT webtransport_export
+  FILE webtransport-config.cmake 
+  DESTINATION lib/cmake/webtransport
+)
+
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+    "webtransport-config-version.cmake"
+    COMPATIBILITY SameMajorVersion
+)
+
+install (FILES 
+  "${CMAKE_CURRENT_BINARY_DIR}/webtransport-config-version.cmake"
+  DESTINATION lib/cmake/webtransport
+)

@@ -23,7 +23,7 @@ Before building on Windows, ensure you have all necessary dependencies. In this 
 $ choco install nasm
 
 $ mkdir build && cd build
-$ cmake --no-warn-unused-cli -G "Visual Studio 17 2022" -A x64 -T ClangCL -DCMAKE_JS_VERSION=7.2.1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$<$<CONFIG:Debug>:Debug> ..
+$ cmake --no-warn-unused-cli -G "Visual Studio 17 2022" -A x64 -T ClangCL -DCMAKE_JS_VERSION=7.2.1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_RUNTIME_LIBRARY="MultiThreaded$<$<CONFIG:Debug>:Debug>" -DABSL_MSVC_STATIC_RUNTIME="ON" ..
 $ cmake --build .
 ```
 
@@ -40,6 +40,17 @@ $ cmake ..
 $ cmake --build .
 ```
 
+
+## Install on Windows
+
+```
+cmake --install ./build --prefix "C:\Program Files\webtransport" --config <Release|Debug>
+```
+
+## Install on Linux
+```bash
+sudo cmake --install ./build --prefix "/usr/local"
+=======
 ## To Install
 To the install __libwebtransport__, enter the following:
 
