@@ -309,7 +309,6 @@ namespace webtransport
         std::make_unique<quic::QuicClientSessionCache>());
 
     client_->set_enable_web_transport(true);
-    client_->set_use_datagram_contexts(true);
 
     if (!client_->Initialize() || !client_->Connect())
     {
