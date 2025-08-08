@@ -3,7 +3,7 @@
 ## Clone repository
 
 ```bash
-$ git clone https://github.com/danielv4/libwebtransport.git
+$ git clone https://github.com/deep-neural/libwebtransport.git
 ```
 
 ## Init submodules
