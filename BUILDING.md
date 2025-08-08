@@ -21,6 +21,7 @@ Before building on Windows, ensure you have all necessary dependencies. In this 
 
 ```bash
 $ choco install nasm
+$ choco install cmake
 
 $ mkdir build && cd build
 $ cmake --no-warn-unused-cli -G "Visual Studio 17 2022" -A x64 -T ClangCL -DCMAKE_JS_VERSION=7.2.1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$<$<CONFIG:Debug>:Debug> ..
@@ -33,7 +34,7 @@ Ensure that all the required development packages are installed before building.
 
 ```bash
 $ apt-get update
-$ apt-get install -y libicu-dev build-essential
+$ apt-get install -y cmake libicu-dev build-essential
 
 $ mkdir build && cd build
 $ cmake ..
