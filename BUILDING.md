@@ -3,7 +3,7 @@
 ## Clone repository
 
 ```bash
-$ git clone https://github.com/danielv4/libwebtransport.git
+$ git clone https://github.com/deep-neural/libwebtransport.git
 ```
 
 ## Init submodules
@@ -21,6 +21,7 @@ Before building on Windows, ensure you have all necessary dependencies. In this 
 
 ```bash
 $ choco install nasm
+$ choco install cmake
 
 $ mkdir build && cd build
 $ cmake --no-warn-unused-cli -G "Visual Studio 17 2022" -A x64 -T ClangCL -DCMAKE_JS_VERSION=7.2.1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_RUNTIME_LIBRARY="MultiThreaded$<$<CONFIG:Debug>:Debug>" -DABSL_MSVC_STATIC_RUNTIME="ON" ..
@@ -33,13 +34,12 @@ Ensure that all the required development packages are installed before building.
 
 ```bash
 $ apt-get update
-$ apt-get install -y libicu-dev build-essential
+$ apt-get install -y cmake libicu-dev build-essential
 
 $ mkdir build && cd build
 $ cmake ..
 $ cmake --build .
 ```
-
 
 ## Install on Windows
 
@@ -47,10 +47,6 @@ $ cmake --build .
 cmake --install ./build --prefix "C:\Program Files\webtransport" --config <Release|Debug>
 ```
 
-## Install on Linux
-```bash
-sudo cmake --install ./build --prefix "/usr/local"
-=======
 ## To Install
 To the install __libwebtransport__, enter the following:
 
