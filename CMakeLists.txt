@@ -1126,7 +1126,15 @@ set_target_properties(webtransport PROPERTIES LINKER_LANGUAGE CXX)
 
 # Platform-specific configurations
 if(WIN32)
-    # Windows-specific configurations (if any)
+  include(GenerateExportHeader)
+  set_property(TARGET webtransport PROPERTY CXX_VISIBILITY "hidden")
+  set_property(TARGET webtransport PROPERTY VISIBILITY_INLINES_HIDDEN TRUE)
+
+  generate_export_header(webtransport EXPORT_FILE_NAME 
+    export/webtransport/export_webtransport.hpp)
+
+  target_include_directories(webtransport
+    PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/export/webtransport")
 elseif(APPLE)
     # macOS-specific configurations (if any)
 else()
@@ -1137,17 +1145,6 @@ endif()
 
 # Only build examples after the main library is built
 add_subdirectory(examples)
-
-
-include(GenerateExportHeader)
-set_property(TARGET webtransport PROPERTY CXX_VISIBILITY "hidden")
-set_property(TARGET webtransport PROPERTY VISIBILITY_INLINES_HIDDEN TRUE)
-
-generate_export_header(webtransport EXPORT_FILE_NAME 
-  export/webtransport/export_webtransport.hpp)
-
-target_include_directories(webtransport
-  PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/export/webtransport")
 
 install(TARGETS webtransport
   EXPORT webtransport_export
