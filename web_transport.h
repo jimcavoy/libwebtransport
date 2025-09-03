@@ -6,7 +6,9 @@
 #include <memory>
 #include <string>
 #include <vector>
+#ifdef _WIN32
 #include "export_webtransport.hpp"
+#endif
 
 // Forward declarations to avoid including internal headers
 namespace webtransport {
