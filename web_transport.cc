@@ -170,6 +170,14 @@ void Server::onSession(std::function<bool(void*, const std::string&)> callback) 
   });
 }
 
+void Server::onSessionClosed(std::function<void(const std::string&)> callback)
+{
+    sessionclosed_callback_ = std::move(callback);
+    if (sessionclosed_callback_) {
+        server_->onSessionClosed(sessionclosed_callback_);
+    }
+}
+
 void Server::onUnidirectionalStream(
     std::function<void(void*, void*, const std::string&)> callback) {
   unidirectional_callback_ = std::move(callback);

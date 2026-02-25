@@ -201,6 +201,7 @@ namespace webtransport
         void OnSessionClosed(quic::WebTransportSessionError error, const std::string &reason) override
         {
             session_closed_ = true;
+            server_->sessionclosed_cb_(reason);
         }
 
         void OnCanCreateNewOutgoingBidirectionalStream() override {}

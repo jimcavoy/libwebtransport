@@ -33,6 +33,7 @@ namespace webtransport
         using SessionCallback = std::function<bool(ServerSession *, std::string)>;
         using UnidirectionalStreamCallback = std::function<void(ServerSession *, ServerUnidirectionalStream *, std::string)>;
         using BidirectionalStreamCallback = std::function<void(ServerSession *, ServerBidirectionalStream *, std::string)>;
+        using SessionClosedCallback = std::function<void(std::string)>;
 
         Server(const std::string &host, uint16_t port);
         ~Server() = default;
@@ -45,6 +46,7 @@ namespace webtransport
         void onSession(SessionCallback cb) { session_cb_ = std::move(cb); }
         void onUnidirectionalStream(UnidirectionalStreamCallback cb) { unidirectional_cb_ = std::move(cb); }
         void onBidirectionalStream(BidirectionalStreamCallback cb) { bidirectional_cb_ = std::move(cb); }
+        void onSessionClosed(SessionClosedCallback cb) { sessionclosed_cb_ = std::move(cb); }
 
         // Server lifecycle methods
         void InitializeServer();
@@ -73,6 +75,7 @@ namespace webtransport
         SessionCallback session_cb_;
         UnidirectionalStreamCallback unidirectional_cb_;
         BidirectionalStreamCallback bidirectional_cb_;
+        SessionClosedCallback sessionclosed_cb_;
 
         // Friend classes
         friend class SessionWrapper;

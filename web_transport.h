@@ -107,6 +107,7 @@ public:
   void onSession(std::function<bool(void*, const std::string&)> callback);
   void onUnidirectionalStream(std::function<void(void*, void*, const std::string&)> callback);
   void onBidirectionalStream(std::function<void(void*, void*, const std::string&)> callback);
+  void onSessionClosed(std::function<void(const std::string&)> callback);
   
   // Server lifecycle
   void initialize();
@@ -119,6 +120,7 @@ private:
   std::function<bool(void*, const std::string&)> session_callback_;
   std::function<void(void*, void*, const std::string&)> unidirectional_callback_;
   std::function<void(void*, void*, const std::string&)> bidirectional_callback_;
+  std::function<void(const std::string&)> sessionclosed_callback_;
 };
 
 //-----------------------------------------------------------------------------
